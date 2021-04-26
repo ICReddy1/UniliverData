@@ -1,4 +1,4 @@
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, functions
 import yaml
 import os.path
 import utils.aws_utils as ut
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         .option("driver", "com.mysql.cj.jdbc.Driver")\
         .options(**jdbc_params)\
         .load()\
-        .withColumn("ins_dt",current_date)
+        .withColumn("ins_dt",functions.current_date)
     txn_df.show()
 
     print("\nWriting  data to S3  using SparkSession.write.format(),")
@@ -58,4 +58,4 @@ if __name__ == '__main__':
         .option("delimiter", "~") \
         .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
 
-# spark-submit --packages "mysql:mysql-connector-java:8.0.11" com/uniliver/source_data_loading.py
+# spark-submit --packages "mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4" com/uniliver/source_data_loading.py
