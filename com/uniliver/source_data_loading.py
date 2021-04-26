@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 import yaml
 import os.path
 import utils.aws_utils as ut
+from pyspark.sql.functions import current_date
 
 if __name__ == '__main__':
 
@@ -43,8 +44,8 @@ if __name__ == '__main__':
         .read.format("jdbc")\
         .option("driver", "com.mysql.cj.jdbc.Driver")\
         .options(**jdbc_params)\
-        .load()
-
+        .load()\
+        .withColumn("ins_dt",current_date)
     txn_df.show()
 
     print("\nWriting  data to S3  using SparkSession.write.format(),")
