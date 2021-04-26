@@ -71,7 +71,7 @@ if __name__ == '__main__':
                 .option("fileType", "csv") \
                 .option("delimiter", ",") \
                 .load(src_conf["sftp_conf"]["directory"] + "/receipts_delta_GBR_14_10_2017.csv")\
-                ..withColumn("ins_dt",functions.current_date())
+                .withColumn("ins_dt",functions.current_date())
 
             txn_df2.show(5, False)
 
