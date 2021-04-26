@@ -4,13 +4,17 @@ import os.path
 import utils.aws_utils as ut
 
 if __name__ == '__main__':
+
+    os.environ["PYSPARK_SUBMIT_ARGS"] = (
+        '--packages "mysql:mysql-connector-java:8.0.15" pyspark-shell'
+    )
+
     # Create the SparkSession
     spark = SparkSession \
         .builder \
-        .appName("Read Files") \
-        .config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:2.7.4') \
+        .appName("Read ingestion enterprise applications") \
+        .master('local[*]') \
         .getOrCreate()
-        # .master('local[*]') \
     spark.sparkContext.setLogLevel('ERROR')
 
     current_dir = os.path.abspath(os.path.dirname(__file__))
@@ -43,4 +47,4 @@ if __name__ == '__main__':
 
     txnDF.show()
 
-# spark-submit --packages "org.apache.hadoop:hadoop-aws:2.7.4" com/uniliver/source_data_loading.py
+# spark-submit --packages "mysql:mysql-connector-java:8.0.15" com/uniliver/source_data_loading.py
