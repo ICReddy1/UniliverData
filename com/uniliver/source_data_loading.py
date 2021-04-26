@@ -69,7 +69,7 @@ if __name__ == '__main__':
                 .option("pem", os.path.abspath(current_dir + "/../../" + app_secret["sftp_conf"]["pem"])) \
                 .option("fileType", "csv") \
                 .option("delimiter", ",") \
-                .load(src_conf["sftp_conf"]["directory"] + "/TransactionSync.csv")
+                .load(src_conf["sftp_conf"]["directory"] + src_conf["sftp_conf"]["filename"])
 
             txn_df2.show(5, False)
 
@@ -77,12 +77,12 @@ if __name__ == '__main__':
             txn_df2 \
                 .repartition(2) \
                 .write \
-                .partitionBy("App_Transaction_Id") \
+                .partitionBy("ins_dt") \
                 .mode("overwrite") \
                 .option("header", "true") \
                 .option("delimiter", ",") \
                 .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
 
-
+            print("\n writing SFT done,")
 
 # spark-submit --packages "mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py
