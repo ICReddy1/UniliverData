@@ -27,7 +27,7 @@ sudo yum update -y
 sudo yum install git-core -y
 pip install pyyaml==5.3.1
 
-git clone https://github.com/ICReddy1/dataframe-example.git
+git clone https://github.com/ICReddy1/UniliverData.git
 cd <repo_dir>
 export PYTHONPATH="$PWD"
 
