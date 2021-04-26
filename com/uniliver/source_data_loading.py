@@ -53,6 +53,7 @@ if __name__ == '__main__':
     txn_df \
         .repartition(2) \
         .write \
+        .partitionBy("ins_dt")\
         .mode("overwrite") \
         .option("header", "true") \
         .option("delimiter", "~") \
