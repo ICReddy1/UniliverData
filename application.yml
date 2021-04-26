@@ -1,6 +1,5 @@
 source_data_list:
-  - SB
-  - OL
+    - OL
 SB:
   mysql_conf:
     dbtable: testdb.TRANSACTIONSYNC
