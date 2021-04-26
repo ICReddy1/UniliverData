@@ -45,7 +45,7 @@ if __name__ == '__main__':
         .option("driver", "com.mysql.cj.jdbc.Driver")\
         .options(**jdbc_params)\
         .load()\
-        .withColumn("ins_dt",functions.current_date)
+        .withColumn("ins_dt",functions.current_date())
     txn_df.show()
 
     print("\nWriting  data to S3  using SparkSession.write.format(),")
