@@ -72,11 +72,11 @@ if __name__ == '__main__':
 
     txn_df2.show(5, False)
 
-    print("\nwriting sft data to S3  using SparkSession.write.format(),")
+    print("\n writing sft data to S3  using SparkSession.write.format(),")
     txn_df2 \
         .repartition(2) \
         .write \
-        .partitionBy("ins_dt") \
+        .partitionBy("App_Transaction_Id") \
         .mode("overwrite") \
         .option("header", "true") \
         .option("delimiter", "~") \
