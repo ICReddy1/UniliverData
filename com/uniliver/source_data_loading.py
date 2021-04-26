@@ -39,12 +39,22 @@ if __name__ == '__main__':
 
     # use the ** operator/un-packer to treat a python dictionary as **kwargs
     print("\nReading data from MySQL DB using SparkSession.read.format(),")
-    txnDF = spark\
+    txn_df = spark\
         .read.format("jdbc")\
         .option("driver", "com.mysql.cj.jdbc.Driver")\
         .options(**jdbc_params)\
         .load()
 
-    txnDF.show()
+    txn_df.show()
 
-# spark-submit --packages "mysql:mysql-connector-java:8.0.15" com/uniliver/source_data_loading.py
+    print("\nWriting  data to S3  using SparkSession.write.format(),")
+    txn_df \
+        .repartition(2) \
+        .write \
+        .partitionBy("id") \
+        .mode("overwrite") \
+        .option("header", "true") \
+        .option("delimiter", "~") \
+        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/transaction.csv")
+
+# spark-submit --packages "mysql:mysql-connector-java:8.0.11" com/uniliver/source_data_loading.py
