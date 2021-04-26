@@ -56,6 +56,6 @@ if __name__ == '__main__':
         .mode("overwrite") \
         .option("header", "true") \
         .option("delimiter", "~") \
-        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/transaction.csv")
+        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
 
 # spark-submit --packages "mysql:mysql-connector-java:8.0.11" com/uniliver/source_data_loading.py
