@@ -1,4 +1,4 @@
-import ut as ut
+import utils.aws_utils as ut
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, IntegerType, BooleanType,DoubleType
 import os.path
