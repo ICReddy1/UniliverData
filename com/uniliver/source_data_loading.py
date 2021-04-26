@@ -48,6 +48,18 @@ if __name__ == '__main__':
         .withColumn("ins_dt",functions.current_date())
     txn_df.show()
 
+    print("\nWriting  data to S3  using SparkSession.write.format(),")
+
+    txn_df \
+        .repartition(2) \
+        .write \
+        .partitionBy("ins_dt") \
+        .mode("overwrite") \
+        .option("header", "true") \
+        .option("delimiter", "~") \
+        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
+
+    print("\nReading data from SFTP  using SparkSession.read.format(),")
     txn_df2 = spark.read \
         .format("com.springml.spark.sftp") \
         .option("host", app_secret["sftp_conf"]["hostname"]) \
@@ -60,15 +72,16 @@ if __name__ == '__main__':
 
     txn_df2.show(5, False)
 
-    print("\nWriting  data to S3  using SparkSession.write.format(),")
-
-    txn_df \
+    print("\nwriting sft data to S3  using SparkSession.write.format(),")
+    txn_df2 \
         .repartition(2) \
         .write \
-        .partitionBy("ins_dt")\
+        .partitionBy("ins_dt") \
         .mode("overwrite") \
         .option("header", "true") \
         .option("delimiter", "~") \
-        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
+        .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SA")
+
+
 
 # spark-submit --packages "mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py
