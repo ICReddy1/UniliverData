@@ -48,10 +48,10 @@ if __name__ == '__main__':
     txn_df.show()
 
     print("\nWriting  data to S3  using SparkSession.write.format(),")
+
     txn_df \
         .repartition(2) \
         .write \
-        .partitionBy("id") \
         .mode("overwrite") \
         .option("header", "true") \
         .option("delimiter", "~") \
