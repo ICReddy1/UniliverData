@@ -61,6 +61,7 @@ if __name__ == '__main__':
 
         elif src == "OL":
             print("\nReading OL data from FTP  ..")
+            src_conf = app_conf[src]
             txn_df2 = spark.read \
                 .format("com.springml.spark.sftp") \
                 .option("host", app_secret["sftp_conf"]["hostname"]) \
@@ -69,7 +70,7 @@ if __name__ == '__main__':
                 .option("pem", os.path.abspath(current_dir + "/../../" + app_secret["sftp_conf"]["pem"])) \
                 .option("fileType", "csv") \
                 .option("delimiter", ",") \
-                .load(app_conf["sftp_conf"]["directory"] + "/receipts_delta_GBR_14_10_2017.csv")
+                .load(src_conf["sftp_conf"]["directory"] + "/receipts_delta_GBR_14_10_2017.csv")
 
             txn_df2.show(5, False)
 
