@@ -102,9 +102,17 @@ if __name__ == '__main__':
                 .option("delimiter", "|") \
                 .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
 
+
         elif src == "ADDR":
             print("\n Reading ADD CP data to S3  ,")
             src_conf = app_conf[src]
+            spark = SparkSession \
+                .builder \
+                .appName("Read ingestion enterprise applications") \
+                .master('local[*]') \
+                .config("spark.mongodb.input.uri", app_secret["mongodb_config"]["uri"]) \
+                .getOrCreate()
+            spark.sparkContext.setLogLevel('ERROR')
             students = spark \
                 .read \
                 .format("com.mongodb.spark.sql.DefaultSource") \
