@@ -94,7 +94,7 @@ if __name__ == '__main__':
                 .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/KC_Extract_1_20171009.csv")\
                 .withColumn("ins_dt",functions.current_date())
 
-            print("\n writing sft CP data to S3  ,")
+            print("\n writing  CP data to S3  ,")
             txn_df3.write \
                 .partitionBy("ins_dt") \
                 .mode("overwrite") \
@@ -102,4 +102,17 @@ if __name__ == '__main__':
                 .option("delimiter", "|") \
                 .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
 
-# spark-submit --packages "mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py
+        elif src == "ADDR":
+            print("\n Reading ADD CP data to S3  ,")
+            src_conf = app_conf[src]
+            students = spark \
+                .read \
+                .format("com.mongodb.spark.sql.DefaultSource") \
+                .option("database", src_conf["mongodb_config"]["database"]) \
+                .option("collection", src_conf["mongodb_config"]["collection"]) \
+                .load()
+
+
+        students.show()
+
+# spark-submit --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py

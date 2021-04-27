@@ -1,5 +1,5 @@
 source_data_list:
-    - CP
+    - ADDR
 SB:
   mysql_conf:
     dbtable: testdb.TRANSACTIONSYNC
@@ -16,13 +16,10 @@ CP:
   s3_conf:
     s3_bucket: icreddy1
 
-
-
-
-
-mongodb_config:
-  database: school
-  collection: students
+ADDR:
+  mongodb_config:
+    database: school
+    collection: students
 
 redshift_conf:
   filetype: csv

@@ -32,6 +32,8 @@ git clone https://github.com/ICReddy1/UniliverData.git
 cd <repo_dir>
 export PYTHONPATH="$PWD"
 
+ec2-54-246-235-205.eu-west-1.compute.amazonaws.com
+
 # Copy 2 files (private key and .secrets) from local to EMR cluster's master node,
 scp -i test.pem xyz.pem hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/
 scp -i test.pem .secrets hadoop@<cluster_dns_name>:/home/hadoop/dataframe-examples-py/
