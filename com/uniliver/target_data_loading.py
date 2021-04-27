@@ -46,4 +46,4 @@ if __name__ == '__main__':
                 df.show()
                 df.createOrReplaceTempView(src)
 
-#spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/target_data_loading.py
+# spark-submit --jars "https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.36.1060/RedshiftJDBC42-no-awssdk-1.2.36.1060.jar" --packages "io.github.spark-redshift-community:spark-redshift_2.11:4.0.1,mysql:mysql-connector-java:8.0.15,org.apache.hadoop:hadoop-aws:2.7.4,org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,com.springml:spark-sftp_2.11:1.1.1" com/unilever/target_data_loading.py
