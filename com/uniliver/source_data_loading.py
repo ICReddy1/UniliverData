@@ -31,6 +31,7 @@ if __name__ == '__main__':
         src_conf = app_conf[src]
         if src_list == "SB":
             print("\nReading SB data from MySQL DB  ..")
+
             jdbc_params = {"url": ut.get_mysql_jdbc_url(app_secret),
                           "lowerBound": "1",
                           "upperBound": "100",
@@ -40,17 +41,17 @@ if __name__ == '__main__':
                           "user": app_secret["mysql_conf"]["username"],
                           "password": app_secret["mysql_conf"]["password"]
                            }
-            txn_df = spark\
+            txn_df1 = spark\
                 .read.format("jdbc")\
                 .option("driver", "com.mysql.cj.jdbc.Driver")\
                 .options(**jdbc_params)\
                 .load()\
                 .withColumn("ins_dt",functions.current_date())
-            txn_df.show()
+            txn_df1.show()
 
             print("\nWriting  data to S3  using SparkSession.write.format(),")
 
-            txn_df \
+            txn_df1 \
                 .write \
                 .partitionBy("ins_dt") \
                 .mode("overwrite") \
@@ -83,5 +84,21 @@ if __name__ == '__main__':
                 .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
 
             print("\n writing SFT done,")
+
+        elif src == "CP":
+            print("\n Reading CP data from  S3 ,")
+            txn_df3 = spark.read \
+                .option("delimiter", "|") \
+                .format("csv") \
+                .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/KC_Extract_1_20171009.csv")\
+                .withColumn("ins_dt",functions.current_date())
+
+            print("\n writing sft CP data to S3  ,")
+            txn_df3.write \
+                .partitionBy("ins_dt") \
+                .mode("overwrite") \
+                .option("header", "true") \
+                .option("delimiter", "|") \
+                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
 
 # spark-submit --packages "mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py

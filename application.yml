@@ -1,5 +1,5 @@
 source_data_list:
-    - OL
+    - CP
 SB:
   mysql_conf:
     dbtable: testdb.TRANSACTIONSYNC
@@ -12,9 +12,9 @@ OL:
     delimiter: |
     directory: /home/ubuntu/data
 
-
-s3_conf:
-  s3_bucket: icreddy1
+CP:
+  s3_conf:
+    s3_bucket: icreddy1
 
 
 
