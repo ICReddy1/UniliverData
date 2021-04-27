@@ -82,7 +82,7 @@ if __name__ == '__main__':
                 .partitionBy("ins_dt") \
                 .mode("overwrite") \
                 .option("header", "true") \
-                .option("delimiter", "~") \
+                .option("delimiter", "|") \
                 .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
 
             print("\n writing SFT done,")
