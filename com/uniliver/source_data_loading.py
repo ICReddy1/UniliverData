@@ -75,7 +75,7 @@ if __name__ == '__main__':
             txn_df2.show(5, False)
 
             print("\n writing sft data to S3  using SparkSession.write.format(),")
-            txn_df2 \
+            txn_df2.write \
                 .partitionBy("ins_dt") \
                 .mode("overwrite") \
                 .option("header", "true") \
