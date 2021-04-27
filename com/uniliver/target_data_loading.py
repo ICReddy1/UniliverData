@@ -42,7 +42,7 @@ if __name__ == '__main__':
                 df = spark.read \
                     .option("header", "true") \
                     .option("delimiter", "~") \
-                    .load("s3a://" + src_list["s3_conf"]["s3_bucket"] + "/staging/" + src)
+                    .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/" + src)
                 df.show()
                 df.createOrReplaceTempView(src)
 
