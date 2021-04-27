@@ -57,7 +57,7 @@ if __name__ == '__main__':
                 .mode("overwrite") \
                 .option("header", "true") \
                 .option("delimiter", "~") \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
+                .parquet("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/SB")
 
         elif src == "OL":
             print("\nReading OL data from FTP  ..")
@@ -81,7 +81,7 @@ if __name__ == '__main__':
                 .mode("overwrite") \
                 .option("header", "true") \
                 .option("delimiter", "|") \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
+                .parquet("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/OL")
 
             print("\n writing SFT done,")
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
                 .mode("overwrite") \
                 .option("header", "true") \
                 .option("delimiter", "|") \
-                .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
+                .parquet("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
 
 
         elif src == "ADDR":
