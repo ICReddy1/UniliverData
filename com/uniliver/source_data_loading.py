@@ -114,13 +114,13 @@ if __name__ == '__main__':
                 .getOrCreate()
             spark.sparkContext.setLogLevel('ERROR')
 
-            students = spark \
+        students = spark \
                 .read \
                 .format("com.mongodb.spark.sql.DefaultSource") \
                 .option("database", src_conf["mongodb_config"]["database"]) \
                 .option("collection", src_conf["mongodb_config"]["collection"]) \
                 .load()
-            students.show()
+        students.show()
 
         student_df = students.select(functions.col('studentno'), functions.col('firstname'), functions.col('lastname'), functions.col('school'))
         student_df = student_df.withColumn("ins_dt", functions.current_date())
