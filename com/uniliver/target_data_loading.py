@@ -40,6 +40,7 @@ if __name__ == '__main__':
             src_list = tgt_conf['sourceTable']
             for src in src_list:
                 df = spark.read \
+                    .format("csv")\
                     .option("header", "true") \
                     .option("delimiter", "~") \
                     .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/" + src)
