@@ -86,11 +86,12 @@ if __name__ == '__main__':
             print("\n writing SFT done,")
 
         elif src == "CP":
+            src_conf = app_conf[src]
             print("\n Reading CP data from  S3 ,")
             txn_df3 = spark.read \
                 .option("delimiter", "|") \
                 .format("csv") \
-                .load("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/KC_Extract_1_20171009.csv")\
+                .load("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/KC_Extract_1_20171009.csv")\
                 .withColumn("ins_dt",functions.current_date())
 
             print("\n writing sft CP data to S3  ,")
