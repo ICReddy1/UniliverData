@@ -51,7 +51,6 @@ if __name__ == '__main__':
             print("\nWriting  data to S3  using SparkSession.write.format(),")
 
             txn_df \
-                .repartition(2) \
                 .write \
                 .partitionBy("ins_dt") \
                 .mode("overwrite") \
@@ -78,7 +77,6 @@ if __name__ == '__main__':
             print("\n writing sft data to S3  using SparkSession.write.format(),")
             txn_df2 \
                 .repartition(2) \
-                .write \
                 .partitionBy("ins_dt") \
                 .mode("overwrite") \
                 .option("header", "true") \
