@@ -9,7 +9,7 @@ SB:
 OL:
   sftp_conf:
     filetype: csv
-    delimiter: ','
+    delimiter: |
     directory: /home/ubuntu/data
 
 
