@@ -100,6 +100,6 @@ if __name__ == '__main__':
                 .mode("overwrite") \
                 .option("header", "true") \
                 .option("delimiter", "|") \
-                .csv("s3a://" + app_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
+                .csv("s3a://" + src_conf["s3_conf"]["s3_bucket"] + "/staging/CP")
 
 # spark-submit --packages "mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py
