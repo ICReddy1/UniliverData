@@ -71,3 +71,5 @@ spark_sql_demo:
         end as Tier
     from
         employees
+s3_conf:
+    s3_bucket: icreddy1
