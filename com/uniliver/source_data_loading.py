@@ -122,7 +122,7 @@ if __name__ == '__main__':
                 .load()
             students.show()
 
-        student_df = students.select(functions.col('studentno'), functions.col('firstname'), functions.col('lastname'), functions.col('school'))
-        student_df = student_df.withColumn("ins_dt", functions.current_date())
-        student_df.show()
+            student_df = students.select(functions.col('studentno'), functions.col('firstname'), functions.col('lastname'), functions.col('school'))
+            student_df = student_df.withColumn("ins_dt", functions.current_date())
+            student_df.show()
 # spark-submit --packages "org.mongodb.spark:mongo-spark-connector_2.11:2.4.1,mysql:mysql-connector-java:8.0.11,org.apache.hadoop:hadoop-aws:2.7.4,com.springml:spark-sftp_2.11:1.1.1" com/uniliver/source_data_loading.py
